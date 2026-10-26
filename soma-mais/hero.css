@@ -1,0 +1,47 @@
+/* Equal side tracks keep the question centered independently of the mascot. */
+.hero{padding:64px max(24px,calc((100% - 1360px)/2)) 72px;background:#321563}
+.hero::after{display:none}
+.hero-center{max-width:1360px;display:grid;grid-template-columns:minmax(110px,1fr) auto minmax(110px,1fr);align-items:center;gap:16px;margin:auto;min-height:190px}
+.hero h1{grid-column:2;white-space:nowrap;font-size:clamp(28px,2.8vw,42px);margin:0;line-height:1.22;text-align:center;color:#fff;letter-spacing:-.02em}
+.hero .mascot-stage{grid-column:3;justify-self:start;width:clamp(110px,12vw,166px);margin:0;padding:0;background:none;border:0;border-radius:0;transform:none;line-height:0}
+.hero .mascot-stage .mascot{transform:none;display:block;width:100%;height:auto;filter:none}
+.hero .mascot-stage .mascot>path:first-child{stroke:#ffcd58;stroke-width:5;stroke-linejoin:round}
+.hero .choices{max-width:1100px;margin:32px auto 0;gap:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.hero .choice{background:#ffcd58;padding:20px;gap:16px;border:2px solid #ffcd58;box-shadow:0 5px 0 #b98420;color:#321563;align-items:center;min-height:108px;transition:transform .15s,box-shadow .15s}
+.hero .choice b{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;padding:10px;background:#6138b8;color:#fff;border-radius:14px}
+.hero .choice svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero .choice>span{font-size:18px;line-height:1.35}
+.hero .choice:hover{border-color:#fff;transform:translateY(-3px);box-shadow:0 8px 0 #b98420}
+.hero .choice:active{transform:translateY(3px);box-shadow:0 2px 0 #b98420}
+.hero .choice:focus-visible{outline:3px solid white;outline-offset:6px}
+nav a[aria-current=page]{color:#6138b8;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:7px}
+.brand>span:first-child{display:inline-grid;place-items:center;width:35px;height:37px;padding:0;font-size:30px;line-height:1}
+@media(max-width:1100px){.hero-center{grid-template-columns:minmax(90px,1fr) auto minmax(90px,1fr);gap:10px}.hero h1{font-size:clamp(26px,2.8vw,32px)}.hero .mascot-stage{width:100px}.hero .choice{padding:16px;gap:12px}.hero .choice>span{font-size:17px}}
+@media(max-width:760px){.hero{padding:40px 20px 48px}.hero-center{grid-template-columns:1fr;gap:24px;min-height:0}.hero h1{grid-column:1;white-space:normal;font-size:clamp(30px,6vw,40px);max-width:520px;margin:auto;text-wrap:balance}.hero .mascot-stage{grid-column:1;justify-self:center;width:120px}.hero .choices{margin-top:28px;grid-template-columns:1fr;max-width:460px;gap:16px}.hero .choice{min-height:80px;padding:14px 18px}.hero .choice>span{font-size:18px}}
+@media(max-width:380px){header{gap:12px}header .brand{font-size:25px}header .small{font-size:12px;padding:10px}nav{font-size:14px}.products{grid-template-columns:1fr}.board{padding:20px}.hero h1{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.hero .choice{transition:none}.hero .choice:hover{transform:none}}
+
+/* Motion stays decorative: no delayed clicks, layout shifts or hidden content. */
+@keyframes soma-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(2deg)}}
+@keyframes soma-arrive{from{opacity:.4;translate:0 12px}to{opacity:1;translate:0 0}}
+@keyframes soma-feedback{from{opacity:.5;translate:0 6px}to{opacity:1;translate:0 0}}
+@keyframes soma-coin{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:no-preference){
+ body:not(.paused) .hero .mascot-stage.float{animation:soma-float 3.6s ease-in-out infinite;translate:none}
+ body:not(.paused) .hero .mascot>circle:last-child{animation:soma-coin 2.8s ease-in-out infinite}
+ body:not(.paused) .hero h1{animation:soma-arrive .5s ease-out both}
+ body:not(.paused) .hero .choice{animation:soma-arrive .45s ease-out both}
+ body:not(.paused) .hero .choice:nth-child(2){animation-delay:.08s}
+ body:not(.paused) .hero .choice:nth-child(3){animation-delay:.16s}
+ body:not(.paused) .quiz-wrap,body:not(.paused) .result{animation:soma-arrive .3s ease-out}
+ body:not(.paused) .feedback:not(:empty),body:not(.paused) #toast{animation:soma-feedback .25s ease-out}
+ body:not(.paused) .choice b{transition:transform .2s ease}
+ body:not(.paused) .choice:is(:hover,:focus-visible) b{transform:rotate(-7deg) scale(1.06)}
+ body:not(.paused) .card .scene svg{transition:transform .25s ease}
+ body:not(.paused) .card:is(:hover,:focus-within) .scene svg{transform:translateY(-5px) rotate(-2deg)}
+ body:not(.paused) .product{transition:border-color .2s,background-color .2s}
+ .product:has(button[aria-pressed=true]){border-color:var(--purple);background:#f5efff}
+}
+body.paused *,body.paused *::before,body.paused *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+body.paused .hero .mascot-stage{translate:none;transform:none}
+@media(prefers-reduced-motion:reduce){.hero .mascot-stage{translate:none;transform:none}}
